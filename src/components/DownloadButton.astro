@@ -1,0 +1,9 @@
+---
+import { productDownloads } from '../lib/site';
+interface Props { product: 'zhijun' | 'wanxiang'; compact?: boolean; }
+const { product, compact = false } = Astro.props;
+const download = productDownloads[product];
+---
+<div class:list={['product-download', { 'download-compact': compact }]}>
+  {download.url ? <a class="button button-ink" href={download.url} target="_blank" rel="noopener noreferrer">下载{download.name}<span aria-hidden="true">↓</span></a> : <><button class="button button-ink" type="button" disabled>下载{download.name}<span aria-hidden="true">↓</span></button><span class="download-availability">下载暂未开放</span></>}
+</div>

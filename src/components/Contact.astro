@@ -1,0 +1,18 @@
+---
+import { site } from '../lib/site';
+const { compact = false } = Astro.props;
+---
+<section class:list={['contact-section', { compact }]} id="contact" aria-labelledby="contact-heading">
+  <div class="container contact-inner">
+    <div>
+      <p class="eyebrow light">THE NEXT CHAPTER · 从这里开始</p>
+      <h2 id="contact-heading">带上你的问题，<br />我们一起往前走。</h2>
+      <p>聊聊你正在做的事，和你希望 AI 帮你做成的事。</p>
+    </div>
+    <div class="contact-actions">
+      <a class="button button-cream" href={site.contactUrl} target="_blank" rel="noopener noreferrer">联系学院顾问 <span aria-hidden="true">↗</span></a>
+      <button class="copy-link" type="button" data-copy-contact={site.contactUrl}>复制客服链接</button>
+      <span class="copy-status" role="status" aria-live="polite"></span>
+    </div>
+  </div>
+</section>

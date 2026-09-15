@@ -1,0 +1,13 @@
+---
+const { compact = false } = Astro.props;
+const steps = [
+  { title: '带来问题', detail: '从正在做的事出发。', shape: 'M20 24h40v28H40L28 64V52h-8Z' },
+  { title: '一起梳理', detail: '讲清背景，找到目标。', shape: 'M22 26h36M22 40h25M22 54h36M53 34l9 6-9 6' },
+  { title: '动手尝试', detail: '做出可以试用的初版。', shape: 'M20 29 40 18l20 11v25L40 65 20 54Zm0 0 20 12 20-12M40 41v24' },
+  { title: '交流结果', detail: '体验彼此的成果。', shape: 'M18 28h39l-8-8M57 28l-8 8M62 52H23l8-8M23 52l8 8' },
+  { title: '持续改进', detail: '带着反馈，再走一步。', shape: 'M58 29a22 22 0 1 0 3 23M58 16v15H43' },
+];
+---
+<ol class:list={['learning-process', 'visual-process', { 'process-compact': compact }]}>
+  {steps.map((step, index) => <li><div class="process-symbol" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d={step.shape} /></svg></div><span class="step-number">{String(index + 1).padStart(2, '0')}</span><h3>{step.title}</h3>{!compact && <p>{step.detail}</p>}</li>)}
+</ol>

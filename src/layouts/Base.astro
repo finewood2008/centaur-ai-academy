@@ -1,0 +1,96 @@
+---
+import '../styles/global.css';
+import '../styles/visual.css';
+import { site, navigation } from '../lib/site';
+const { title, description = site.description, pageClass = '', article = false } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ? `${title} · ${site.name}` : `${site.name} · 让 AI 成为你的能力`}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#FAF7F2" />
+    <meta property="og:title" content={title ? `${title} · ${site.name}` : `${site.name} · 让 AI 成为你的能力`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <link rel="icon" href="/assets/centaur-logo-official.png" type="image/png" />
+  </head>
+  <body class={pageClass}>
+    <a class="skip-link" href="#main">跳至正文</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="半人马AI学院首页">
+          <img src="/assets/centaur-logo-official.png" width="37" height="49" alt="" />
+          <span><strong>半人马AI学院</strong><small>{site.english}</small></span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="打开导航" aria-controls="site-navigation" aria-expanded="false"><span></span><span></span></button>
+        <nav id="site-navigation" class="site-nav" aria-label="主导航">
+          {navigation.map(({ href, label }) => <a href={href} aria-current={currentPath.startsWith(href) ? 'page' : undefined}>{label}</a>)}
+          <a class="nav-contact" href="#contact">联系学院顾问 <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer">
+      <div class="container footer-main">
+        <a class="brand" href="/" aria-label="半人马AI学院首页"><img src="/assets/centaur-logo-official.png" width="37" height="49" alt="" /><span><strong>半人马AI学院</strong><small>{site.english}</small></span></a>
+        <p>各有知君，共创万象。</p>
+        <a href="https://centaurloop.com/" target="_blank" rel="noopener noreferrer">半人马人工智能 <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="container footer-bottom"><span>由半人马人工智能发起</span><span>人决定方向，AI 拓展人的能力。</span></div>
+    </footer>
+    <script>
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const scenes = document.querySelectorAll<HTMLElement>('[data-reveal]');
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        scenes.forEach(scene => { scene.classList.add('reveal-ready'); observer.observe(scene); });
+      }
+      const menuButton = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const nav = document.querySelector<HTMLElement>('.site-nav');
+      const closeMenu = () => {
+        menuButton?.setAttribute('aria-expanded', 'false');
+        menuButton?.setAttribute('aria-label', '打开导航');
+        nav?.classList.remove('is-open');
+      };
+      menuButton?.addEventListener('click', () => {
+        const expanded = menuButton.getAttribute('aria-expanded') !== 'true';
+        menuButton.setAttribute('aria-expanded', String(expanded));
+        menuButton.setAttribute('aria-label', expanded ? '关闭导航' : '打开导航');
+        nav?.classList.toggle('is-open', expanded);
+      });
+      nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') { closeMenu(); menuButton.focus(); }
+      });
+      document.querySelectorAll<HTMLButtonElement>('[data-copy-contact]').forEach(button => {
+        button.addEventListener('click', async () => {
+          const status = button.parentElement?.querySelector<HTMLElement>('.copy-status');
+          try {
+            await navigator.clipboard.writeText(button.dataset.copyContact!);
+            if (status) status.textContent = '链接已复制';
+          } catch {
+            if (status) {
+              status.textContent = '复制未完成，可直接打开上方客服入口。';
+              const input = document.createElement('input');
+              input.value = button.dataset.copyContact!;
+              input.readOnly = true;
+              input.setAttribute('aria-label', '客服链接，可选中复制');
+              status.append(input);
+              input.select();
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+---
+import { dateLabel } from '../lib/site';
+const { entry } = Astro.props;
+---
+<article class="journal-card" data-category={entry.data.category}>
+  <a href={`/journal/${entry.id}/`} class="journal-card-link">
+    {entry.data.cover && <div class="journal-cover"><img src={entry.data.cover} alt={entry.data.coverAlt || ''} width="1448" height="1086" loading="lazy" decoding="async" /></div>}
+    <div class="entry-meta"><span>{entry.data.category}</span><time datetime={entry.data.publishedAt}>{dateLabel(entry.data.publishedAt)}</time></div>
+    <h3>{entry.data.title}</h3>
+    <span class="read-link">阅读全文 <span aria-hidden="true">↗</span></span>
+  </a>
+</article>

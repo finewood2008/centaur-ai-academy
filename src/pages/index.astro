@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
+import LearningProcess from '../components/LearningProcess.astro';
+import JournalCard from '../components/JournalCard.astro';
+import DownloadButton from '../components/DownloadButton.astro';
+import { site, publishedEntries } from '../lib/site';
+const entries = (await publishedEntries()).filter(entry => entry.data.featured).slice(0, 3);
+---
+<Base pageClass="home-page">
+  <section class="hero container">
+    <div class="hero-copy">
+      <p class="eyebrow">CENTAUR AI ACADEMY <span class="eyebrow-rule"></span> 学习 · 实践 · 共创</p>
+      <h1>让 AI 成为<br /><em>你的能力</em><span class="title-period">。</span></h1>
+      <p class="hero-subtitle">面向经营者与管理者的<br />长期共学与共创学院。</p>
+      <p class="hero-description">把你的经验、判断和真实问题，<br />与 AI 的能力连接起来。</p>
+      <div class="hero-actions"><a class="button button-ink" href={site.contactUrl} target="_blank" rel="noopener noreferrer">联系学院顾问 <span aria-hidden="true">↗</span></a><a class="text-link" href="/learning/">了解共学与共创 <span aria-hidden="true">→</span></a></div>
+    </div>
+    <figure class="hero-art"><img src="/assets/academy-centaur-hero.png" width="1448" height="1086" alt="橙色人身与蓝色马身结合的半人马艺术形象" fetchpriority="high" /><figcaption><span>HUMAN × AI</span><span>人的意愿 · 能力的延伸</span></figcaption></figure>
+    <div class="hero-bottom"><span>人决定方向，AI 拓展人的能力。</span><a href="#why">向下，走进学院 <span aria-hidden="true">↓</span></a></div>
+  </section>
+
+  <div class="visual-story container">
+    <section class="story-chapter" id="why" aria-labelledby="experience-title">
+      <div class="chapter-copy"><p class="eyebrow">01 / 从你的积累出发</p><h2 id="experience-title">你走过的路，<br />都是<em>起点。</em></h2><p class="chapter-description">让 AI 的能力，<br />长在你的经验与判断之上。</p><a class="text-link" href="/academy/">了解学院的主张 ↗</a></div>
+      <figure class="chapter-image" data-reveal><img src="/assets/experience.png" width="1448" height="1086" alt="概念插画：笔记、铅笔与方向标，象征经验积累与判断" loading="lazy" decoding="async" /><figcaption><span>EXPERIENCE</span><span>经验，值得新的可能。</span></figcaption></figure>
+    </section>
+    <section class="story-chapter chapter-reverse" aria-labelledby="learning-title">
+      <div class="chapter-copy"><p class="eyebrow">02 / 与同行者一起</p><h2 id="learning-title">一个好问题，<br />值得<em>一起做。</em></h2><p class="chapter-description">交流彼此的经验，动手试一次，<br />再把新的方法带回工作。</p><a class="text-link" href="/learning/">了解共学与共创 ↗</a></div>
+      <figure class="chapter-image" data-reveal><img src="/assets/co-learning.png" width="1448" height="1086" alt="概念插画：三位同伴围桌讨论纸上的想法" loading="lazy" decoding="async" /><figcaption><span>LEARN TOGETHER</span><span>在对话中看见新的可能。</span></figcaption></figure>
+    </section>
+    <div class="process-interlude"><p class="eyebrow">每一次共学，都向前一点</p><LearningProcess compact /></div>
+    <section class="story-chapter" aria-labelledby="creating-title">
+      <div class="chapter-copy"><p class="eyebrow">03 / 让想法落地</p><h2 id="creating-title">从“我想”，<br />到<em>“我来做”。</em></h2><p class="chapter-description">你的积累，由你掌握。<br />你的方法，可以成为工具。</p><div class="chapter-tools chapter-downloads"><div class="chapter-product"><a class="chapter-product-info" href="/tools/#zhijun"><span>知君</span><span>让积累参与思考 ↗</span></a><DownloadButton product="zhijun" compact /></div><div class="chapter-product"><a class="chapter-product-info" href="/tools/#wanxiang"><span>万象</span><span>让想法成为应用 ↗</span></a><DownloadButton product="wanxiang" compact /></div></div></div>
+      <figure class="chapter-image" data-reveal><img src="/assets/creating.png" width="1448" height="1086" alt="概念插画：电脑、纸面原型与立体模型，表现从想法到创造" loading="lazy" decoding="async" /><figcaption><span>MAKE IT REAL</span><span>亲手试用，持续改进。</span></figcaption></figure>
+    </section>
+  </div>
+
+  <section class="section journal-section"><div class="container">
+    <div class="section-heading"><div><p class="eyebrow">CENTAUR JOURNAL / 观点与动态</p><h2>保持好奇，<em>继续对话。</em></h2></div><a class="text-link" href="/journal/">全部观点与动态 ↗</a></div>
+    <div class="journal-grid">{entries.map(entry => <JournalCard entry={entry} />)}</div>
+  </div></section>
+  <section class="founder-editorial container" aria-labelledby="founder-title">
+    <div class="founder-stamp"><span class="eyebrow">FROM THE FOUNDER</span><span class="founder-character" aria-hidden="true">嘉木</span><p>半人马AI学院院长、创始人<br />产品经理 · 连续创业者</p></div>
+    <div><h2 id="founder-title">“我希望学院能聚起一群认同人机共生、愿意共同成长的人。”</h2><p>AI 越强大，我们越应该认真思考：<br />人如何保有自己的目标、判断与选择。</p><a class="text-link" href="/journal/a-letter-from-jiamu/">阅读院长来信 ↗</a></div>
+  </section>
+  <Contact />
+</Base>

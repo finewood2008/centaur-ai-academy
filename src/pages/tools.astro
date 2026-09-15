@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
+import DownloadButton from '../components/DownloadButton.astro';
+---
+<Base title="实践工具" pageClass="tools-page">
+  <section class="page-intro container"><p class="eyebrow">TOOLS FOR PRACTICE / 实践工具</p><h1>各有知君，<br /><em>共创万象。</em></h1><p class="intro-description">让积累参与思考，让想法成为工具。</p></section>
+  <section class="section border-top" id="zhijun"><div class="container visual-feature"><figure class="feature-picture" data-reveal><img src="/assets/experience.png" width="1448" height="1086" alt="概念插画：笔记里的经历与知识" loading="lazy" /><figcaption>从你熟悉的一组材料开始。</figcaption></figure><div class="feature-copy"><p class="eyebrow">ZHIJUN / 01</p><h2>知君</h2><p class="feature-lead">认识自己，整理积累。</p><DownloadButton product="zhijun" /><p>经历、资料、一次决定背后的考虑。知君希望帮助你把这些线索组织起来，让 AI 的帮助更贴近你。</p><div class="mini-flow" aria-label="知君的实践过程"><span>你的积累</span><b aria-hidden="true">→</b><span>整理理解</span><b aria-hidden="true">→</b><span>参与思考</span></div><p>从熟悉的材料开始，检查、补充与修正，保有自己的判断。</p><a class="text-link" href="/journal/personal-knowledge/">为什么个人积累值得整理 ↗</a></div></div></section>
+  <section class="section tool-detail-tint" id="wanxiang"><div class="container visual-feature feature-reverse"><figure class="feature-picture" data-reveal><img src="/assets/creating.png" width="1448" height="1086" alt="概念插画：从想法草图到可用模型" loading="lazy" /><figcaption>从工作中一件反复处理的小事开始。</figcaption></figure><div class="feature-copy"><p class="eyebrow">WANXIANG / 02</p><h2>万象</h2><p class="feature-lead">用自己的语言，创造工具。</p><DownloadButton product="wanxiang" /><p>说清需求，让 AI 协助构建应用。再亲手试用，让它逐步适合你的工作。</p><div class="mini-flow" aria-label="万象的实践过程"><span>说清需求</span><b aria-hidden="true">→</b><span>做出初版</span><b aria-hidden="true">→</b><span>试用改进</span></div><p>在学院里，一起讨论需求是否明确、结果是否有用、下一步值得改什么。</p><a class="text-link" href="/journal/create-with-language/">从自己的第一件小工具开始 ↗</a></div></div></section>
+  <section class="section"><div class="container quiet-invitation"><p class="eyebrow">从哪里开始</p><h2>带上一件最近的工作。</h2><p>我们一起找到适合你的实践方向。</p><a class="text-link" href="/learning/">了解学院的实践方式 ↗</a></div></section>
+  <Contact />
+</Base>
